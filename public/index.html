@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebRTC Training</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/game.css">
+</head>
+<body>
+    <h1>WEBRTC TRAINING</h1>
+    <!--
+    <form id="joinForm">
+        <div class="formField" id="enterName">
+            <label>Your name</label>
+            <input id="roomNumber" type="text"/>
+        </div>
+        <div class="formField" id="selectRoom">
+            <label>Room name</label>
+            <input id="roomNumber" type="text"/>
+            <button id="goRoom">Go</button>
+        </div>
+    </form>
+-->
+    <div id="consultingRoom" style="display: none;">
+        <h2 id="callName"></h2>
+        <p>
+            <input id="inputCallName" type="text"/>
+            <button id="setName">Set Name</button>
+        </p>
+        <video id="localVideo" autoplay ></video>
+        <video id="remoteVideo" autoplay></video>
+    </div>
+    <div id="gameContainer" style="display: none;">
+        <!------- left sidebar - player1 ------>
+        
+        <div id="player1" class="player-profile">
+          <img src="images/profile-pic.jpg">
+          <h4 class="user-name">Jane Doe</h4>
+          <h1 class="user-sign">Peer1</h1>
+          <div class="score-counter-container">
+            <div class="score-counter">
+                <h3>0</h3>
+                <span>Score</span>
+            </div>
+          </div>
+        </div>
+
+        <!------- main content - game ------>
+        <div id="main-content">
+          <div id="cellContainer">
+              <div cellIndex="0" class="cell"></div>
+              <div cellIndex="1" class="cell"></div>
+              <div cellIndex="2" class="cell"></div>
+              <div cellIndex="3" class="cell"></div>
+              <div cellIndex="4" class="cell"></div>
+              <div cellIndex="5" class="cell"></div>
+              <div cellIndex="6" class="cell"></div>
+              <div cellIndex="7" class="cell"></div>
+              <div cellIndex="8" class="cell"></div>
+          </div>
+          <h2 id="statusText"></h2>
+          <button id="restartBtn">Restart</button>
+        </div>
+        <!------- right sidebar - player2 ------>
+        
+        <div id="player2" class="player-profile">
+          <img src="images/profile-pic.jpg">
+          <h4 class="user-name">Jane Dowe</h4>
+          <h1 class="user-sign">Peer2</h1>
+          <div class="score-counter-container">
+            <div class="score-counter">
+                <h3>0</h3>
+                <span>Score</span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

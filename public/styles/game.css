@@ -1,0 +1,111 @@
+.cell{
+    width: 75px;
+    height: 75px;
+    border: 2px solid;
+    box-shadow: 0 0 0 2px;
+    line-height: 75px;
+    font-size:50px;
+    cursor: pointer;
+
+}
+
+#gameContainer{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    display: flex; 
+    justify-content: space-evenly;
+    padding: 13px 5%;
+
+}
+
+#cellContainer{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    width: 225px;
+    margin:auto;
+}
+
+.player-profile{
+    flex-basis: 25%;
+    position: sticky;
+    top: 70px;
+    text-align: center;
+    align-self: flex-start;
+    background: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 4px;
+    color: #626262;
+}
+
+.not-connected{
+    background-color: #454545;
+}
+
+.player-active{
+    border: 2px solid green;
+}
+
+.player-waiting{
+    border: 2px solid red;
+}
+
+.player-profile img{
+    width: 70%;
+    border-radius: 50%;
+    margin:15px;
+}
+
+.score-counter-container{
+    margin: 20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.score-counter{
+    align-items: center;
+    border-radius:10px;
+    height: 65px;
+    width: 65px;
+    margin-right:15px;
+    padding-top: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.score-counter span{
+    /*ovdje ucinimo da mjesec bude u svom malom obojanom odjeljku*/
+    position:absolute;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    background-color: #1876f2;
+    color: #fff;
+    font-size: 10px;
+    padding: 6px 0;
+}
+
+.main-content{
+    flex-basis: 50%;
+    width: 100%;
+}
+
+
+@media (max-width: 980px) {
+    #gameContainer{
+        flex-direction: column;
+        width: 100%;
+    }
+    .player-profile
+    {
+        width: 100%;
+        position: static;
+    }
+    .main-content
+    {
+        width: 100%;
+    }
+
+}
+

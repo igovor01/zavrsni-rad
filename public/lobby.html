@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PeerToPeer</title>
+    <link rel="stylesheet" href="styles/lobby.css">
+  </head>
+  <body>
+
+    <main id="lobby-container">
+        <div id="form-container">
+            <div id="form-container-header">
+                <p>Create OR Join a Room</p>
+            </div>
+
+            <form id="join-form">
+                <div class="form-field-wrapper">
+                  <label>Your Name</label>
+                  <input type="text" name="name" required placeholder="Enter your name here..." />
+                </div>
+                <div class="form-field-wrapper">
+                  <label>Room Name</label>
+                  <input type="text" name="invite_link"  placeholder="Enter room name..." />
+                </div>
+                
+                <div class="form-field-wrapper">
+                  <button type="submit">Join Room </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+
+  </body>
+
+  <script src="lobby.js"></script>
+</html>
