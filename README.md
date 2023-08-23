@@ -1,4 +1,4 @@
-1. git clone ovaj-repozitorij
+1. git clone https://github.com/igovor01/zavrsni-rad.git
 
 2. otvoriti u konzoli mapu ovog projekta 
 
