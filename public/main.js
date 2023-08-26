@@ -1,19 +1,8 @@
-//let divSelectRoom = document.getElementById('selectRoom')
-let divConsultingRoom = document.getElementById('consultingRoom')
-//let inputRoomNumber = document.getElementById('roomNumber')
-//let btnGoRoom = document.getElementById('goRoom')
-let localVideo = document.getElementById('localVideo')
-let remoteVideo = document.getElementById('remoteVideo')
-
-let h2CallName = document.getElementById("callName")
-let inputCallName = document.getElementById("inputCallName")
-let btnSetName = document.getElementById("setName")
-
 let divGameContainer = document.getElementById("gameContainer")
 let myPlayerCard = document.getElementById("player1");
 let otherPlayerCard = document.getElementById("player2");
 
-let localStream, remoteStream, rtcPeerConnection, isCaller
+let rtcPeerConnection, isCaller
 let dataChannel;
 
 let mySign
@@ -29,7 +18,8 @@ if(!roomNumber){
 }
 
 let myDisplayName = sessionStorage.getItem('display_name')
-if(!myDisplayName){
+let myPicSrc = sessionStorage.getItem('pic-src')
+if(!myDisplayName || !myPicSrc){
     window.location = 'lobby.html'
 }
 console.log("My display name:", myDisplayName)
@@ -41,11 +31,6 @@ const iceServers = {
         {'urls':'stun:stun.services.mozilla.com'},
         {'urls':'stun:stun.l.google.com:19302'}
     ]
-}
-
-const streamConstraints = {
-    audio: true,
-    video:true
 }
 
 const socket = io()
@@ -65,16 +50,13 @@ init = () => {
         //0. neka se div s pločom i igračima pojavi
         //1. inicijalizirat igru kao NEAKTIVNU - aktivna tek kad u 'created'
         //checkWhichSign()
-        //divSelectRoom.style = "display:none"
-        divConsultingRoom.style = "display:block"
         divGameContainer.style = "display:flex"
     }
 }
 
 function addSelfToDOM(){
-    //document.get h1 di je ime i stavit svoje ime
     myPlayerCard.querySelector('.user-name').textContent = myDisplayName;
-    //document.get di je slika potencijalno i stavit svoju sliku
+    myPlayerCard.querySelector('img').src = myPicSrc;
 }
 
 function addWaitingForUserToDOM(){
@@ -88,18 +70,6 @@ function addWaitingForUserToDOM(){
 
 }
 
-btnSetName.onclick = () => {
-    if(inputCallName.value === ''){
-        alert("please type a call name")
-    } else{
-        const message = {
-            type: 'update-call-name',
-            callName: inputCallName.value
-            } 
-        dataChannel.send(JSON.stringify(message))
-        h2CallName.innerText = inputCallName.value
-    }
-}
 
 socket.on('created', room => {
     //caller side - ovo se trigera kad se 1. korisnik prikljuci
@@ -107,17 +77,7 @@ socket.on('created', room => {
 
     isCaller = true
 
-    navigator.mediaDevices.getUserMedia(streamConstraints)
-         .then(stream => {
-            localStream = stream
-            localVideo.srcObject = localStream
-            isCaller = true
-        })
-        .catch(err => {
-            console.log('An error occured', err)
-        })
-
-    
+   
     checkWhichSign()
 })
 
@@ -125,16 +85,9 @@ socket.on('joined', room => {
     //callED side - ovo se trigera kad se on kao 2. korisnik prikljuci
     //sa linijom "socket.emit('ready', roomNumber)" gradi se vec slika u kojoj nismo sami u sobi
     
-    navigator.mediaDevices.getUserMedia(streamConstraints)
-         .then(stream => {
-            localStream = stream
-            localVideo.srcObject = localStream
-            socket.emit('ready', roomNumber)//gradimo konekciju
-            console.log("User has joined!");
-        })
-        .catch(err => {
-            console.log("An error occured", err)
-        })
+    socket.emit('ready', roomNumber)//gradimo konekciju
+    console.log("User has joined!");
+
     checkWhichSign()
 })
 
@@ -150,7 +103,8 @@ function sendUserInfo(){
     //let picUrl = url slike koja ce nam bit profilna/eventualno imat par slika ponudenih
     const message = {
             type: 'user-info',
-            name: myDisplayName
+            name: myDisplayName,
+            src: myPicSrc
     }
     dataChannel.send(JSON.stringify(message))
 }
@@ -176,11 +130,8 @@ socket.on('ready', () => {
                 initializeGame()
             }
         }*/
-        rtcPeerConnection.ontrack = onAddStream
-        rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream)
-        rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream)
+
         //tu bi tribali inicalirat igru kao da mi prvi igramo
-        
         dataChannel = rtcPeerConnection.createDataChannel(roomNumber)
         rtcPeerConnection.createOffer()
             .then(sessionDescription => {
@@ -229,9 +180,6 @@ socket.on('offer', (event)=>{
             }
         }
         //stvori sliku za callED side, neka bude neaktivno
-        rtcPeerConnection.ontrack = onAddStream
-        rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream)
-        rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream)
         console.log('received offer', event)
         rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event))
         rtcPeerConnection.ondatachannel = event => {
@@ -275,10 +223,7 @@ socket.on('candidate', event=>{
     rtcPeerConnection.addIceCandidate(candidate)
 })
 
-function onAddStream(event){
-    remoteVideo.srcObject = event.streams[0]
-    remoteStream = event.streams[0] 
-}
+
 
 function onIceCandidate(event){
     if(event.candidate){
@@ -322,9 +267,6 @@ function handleChannelMessage(message){
             currentPlayer = data.currentPlayer
             initializeGame()
             break;
-        case "update-call-name":
-            document.getElementById("callName").innerHTML = data.callName
-            break;
         default:
             break;
     }
@@ -332,11 +274,11 @@ function handleChannelMessage(message){
 
 function addOtherToDom(data){
     otherName = data.name
-    //otherPicUrl = data.pic-url
+    otherSrc = data.src
     otherPlayerCard.classList.remove("not-connected")
 
     otherPlayerCard.querySelector(".user-name").textContent = otherName
-    //document.get di je OTHER slika  i stavit za src OTHER sliku
+    otherPlayerCard.querySelector("img").src = otherSrc
 }
 
 function handlePeerLeaving(){

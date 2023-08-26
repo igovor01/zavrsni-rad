@@ -5,26 +5,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>PeerToPeer</title>
+  <title>TicTocToe lobby</title>
+  <script src="https://kit.fontawesome.com/11c4571db7.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="styles/lobby.css">
 </head>
 
 <body>
 
   <main id="lobby-container">
+    <div class="title-header">
+      <i class="fa-solid fa-xmark" style="color: #cafaf27d;"></i>
+      TicTacToe
+      <i class="fa-solid fa-o" style="color: #cafaf27d;"></i>
+    </div>
     <div id="form-container">
-      <div id="form-container-header">
+      <!--<div id="form-container-header">
         <p>Create OR Join a Room</p>
-      </div>
+      </div> -->
 
       <form id="join-form">
         <div class="form-field-wrapper">
+        <label>Your Icon</label>
+        <div class="circle-container">
+          <div class="circle-link">
+            <img class="circle-image" src="images/hedgehog.png" alt="Image 2">
+          </div>
+          <div class="circle-link">
+            <img class="circle-image" src="images/rabbit.png" alt="Image 2">
+          </div>
+          <div class="circle-link">
+            <img class="circle-image" src="images/dog.png" alt="Image 2">
+          </div>
+          <div class="circle-link">
+            <img class="circle-image" src="images/cat.png" alt="Image 2">
+          </div>
+          <div class="circle-link">
+            <img class="circle-image" src="images/lion.png" alt="Image 2">
+          </div>
+          
+          <!-- Add more circle links as needed -->
+        </div>
+        <span class="error-message"></span>
+      </div>
+        <div class="form-field-wrapper">
           <label>Your Name</label>
-          <input type="text" name="name" required placeholder="Enter your name here..." />
+          <input type="text" name="name" placeholder="Enter your name here..." />
+          <span class="error-message"></span>
         </div>
         <div class="form-field-wrapper">
           <label>Room Name</label>
-          <input type="text" name="invite_link" placeholder="Enter room name..." />
+          <input type="text" name="room" placeholder="Enter room name..." />
+          <span class="error-message"></span>
         </div>
 
         <div class="form-field-wrapper">
