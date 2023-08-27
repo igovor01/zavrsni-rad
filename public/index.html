@@ -6,46 +6,27 @@
     <link rel="stylesheet" href="styles/game.css">
 </head>
 <body>
-    <h1>WEBRTC TRAINING</h1>
-    <!--
-    <form id="joinForm">
-        <div class="formField" id="enterName">
-            <label>Your name</label>
-            <input id="roomNumber" type="text"/>
-        </div>
-        <div class="formField" id="selectRoom">
-            <label>Room name</label>
-            <input id="roomNumber" type="text"/>
-            <button id="goRoom">Go</button>
-        </div>
-    </form>
--->
-    <div id="consultingRoom" style="display: none;">
-        <h2 id="callName"></h2>
-        <p>
-            <input id="inputCallName" type="text"/>
-            <button id="setName">Set Name</button>
-        </p>
-        <video id="localVideo" autoplay ></video>
-        <video id="remoteVideo" autoplay></video>
-    </div>
-    <div id="gameContainer" style="display: none;">
+    <div class="title-header">TicTacToe</div>
+    <div id="mainContent" style="display: none;">
         <!------- left sidebar - player1 ------>
         
         <div id="player1" class="player-profile">
-          <img src="images/profile-pic.jpg">
-          <h4 class="user-name">Jane Doe</h4>
-          <h1 class="user-sign">Peer1</h1>
-          <div class="score-counter-container">
-            <div class="score-counter">
-                <h3>0</h3>
-                <span>Score</span>
+            <div class="image-sign-container">
+                <div class="image-border">
+                    <img src="">
+                    
+                </div>
+                <h1 class="user-sign"></h1>
             </div>
-          </div>
+            <h4 class="user-name"></h4>
+            <div class="score-counter">
+                    <span>Score</span>
+                    <h3>0</h3>
+            </div>
         </div>
 
         <!------- main content - game ------>
-        <div id="main-content">
+        <div id="gameContainer">
           <div id="cellContainer">
               <div cellIndex="0" class="cell"></div>
               <div cellIndex="1" class="cell"></div>
@@ -63,20 +44,28 @@
         <!------- right sidebar - player2 ------>
         
         <div id="player2" class="player-profile">
-          <img src="images/profile-pic.jpg">
-          <h4 class="user-name">Jane Dowe</h4>
-          <h1 class="user-sign">Peer2</h1>
-          <div class="score-counter-container">
-            <div class="score-counter">
-                <h3>0</h3>
-                <span>Score</span>
+            <div class="image-sign-container">
+                <div class="image-border">
+                    <img src="">
+                    
+                </div>
+                <h1 class="user-sign"></h1>
             </div>
-          </div>
+            <h4 class="user-name"></h4>
+            <div class="score-counter">
+                    <span>Score</span>
+                    <h3>0</h3>
+            </div>
         </div>
+
+        <!-- Game-ending message 
+        <div class="game-over-message">
+            Game Over
+        </div>-->
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="game.js"></script>
-    <script src="main.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>

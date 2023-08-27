@@ -1,4 +1,4 @@
-let divGameContainer = document.getElementById("gameContainer")
+let divMainContainer = document.getElementById("mainContent")
 let myPlayerCard = document.getElementById("player1");
 let otherPlayerCard = document.getElementById("player2");
 
@@ -50,7 +50,7 @@ init = () => {
         //0. neka se div s pločom i igračima pojavi
         //1. inicijalizirat igru kao NEAKTIVNU - aktivna tek kad u 'created'
         //checkWhichSign()
-        divGameContainer.style = "display:flex"
+        divMainContainer.style = "display:flex"
     }
 }
 
@@ -61,8 +61,9 @@ function addSelfToDOM(){
 
 function addWaitingForUserToDOM(){
     //document.get h1 di je OTHER's ime i stavit "Waiting"
-    otherPlayerCard.querySelector('.user-name').textContent = "Waiting for player...";
-    //document.get di je slika i stavit Waiting sliku
+    otherPlayerCard.querySelector('.user-name').textContent = "Waiting...";
+    otherPlayerCard.querySelector('img').src = "images/waiting.png";
+
     //obojat pozadinu u sivo
     otherPlayerCard.classList.add("not-connected");
     //document.get di je user-sign i nek bude = ""

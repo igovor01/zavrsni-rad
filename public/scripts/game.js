@@ -108,7 +108,7 @@ function restartGame() {
 
   cells.forEach((cell) => {
     cell.textContent = "";
-    cell.style.backgroundColor = "transparent";
+    cell.style.backgroundColor = "var(--very-light-gray-green)";
     cell.removeEventListener("click", handleCellClicked);
   });
   running = true;
