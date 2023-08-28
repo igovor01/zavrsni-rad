@@ -1,7 +1,6 @@
 const cells = document.querySelectorAll(".cell");
 const statusText = document.querySelector("#statusText");
 const restartBtn = document.querySelector("#restartBtn");
-//novi komentar
 
 const winConditions = [
   [0, 1, 2],
@@ -26,6 +25,7 @@ let running = false;
 function initializeGame() {
   console.log("IGRA SE INICIJALIZIRA");
   running = true;
+  //restartGame();
 
   // restartBtn.disabled = false
   cells.forEach((cell) => cell.addEventListener("click", handleCellClicked));
@@ -93,9 +93,16 @@ function checkWinner() {
   }
   if (roundWon) {
     statusText.textContent = `${currentPlayer} wins!`;
+    if(currentPlayer == mySign){
+      showPopUp("win")
+    }
+    else{
+      showPopUp("lose")
+    }
     running = false;
   } else if (!options.includes("")) {
     statusText.textContent = `Draw!`;
+    showPopUp("draw");
   } else {
     changePlayer();
   }

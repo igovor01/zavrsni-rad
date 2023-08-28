@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>WebRTC Training</title>
+    <title>TicTacToe</title>
+    <script src="https://kit.fontawesome.com/11c4571db7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/game.css">
 </head>
 <body>
-    <div class="title-header">TicTacToe</div>
+    <div class="titleHeader">TicTacToe</div>
     <div id="mainContent" style="display: none;">
         <!------- left sidebar - player1 ------>
         
-        <div id="player1" class="player-profile">
+        <div id="player1" class="playerProfile">
             <div class="image-sign-container">
                 <div class="image-border">
                     <img src="">
@@ -43,7 +44,7 @@
         </div>
         <!------- right sidebar - player2 ------>
         
-        <div id="player2" class="player-profile">
+        <div id="player2" class="playerProfile">
             <div class="image-sign-container">
                 <div class="image-border">
                     <img src="">
@@ -58,10 +59,16 @@
             </div>
         </div>
 
-        <!-- Game-ending message 
-        <div class="game-over-message">
-            Game Over
-        </div>-->
+        
+    </div>
+    
+     <div class="popUp">
+        <div class="popUpImage"></div>
+        <div class="popUpMessage"></div>
+        <div class="popUpButtonContainer">
+            <button class="popUpButton"></button>
+            <button class="popUpButton" >Hello</button>
+        </div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>

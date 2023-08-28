@@ -17,8 +17,8 @@ io.on('connection', socket => {
 
     socket.on('create or join', room => {
         console.log('create or join to room', room)
-        const myRoom = io.sockets.adapter.rooms.get(room) || {size: 0}
-        const numClients = myRoom.size
+        let myRoom = io.sockets.adapter.rooms.get(room) || {size: 0}
+        let numClients = myRoom.size
         console.log(room, 'has', numClients, 'clients')
 
         if(numClients === 0){
@@ -30,6 +30,9 @@ io.on('connection', socket => {
         } else{
             socket.emit('full', room)
         }
+        myRoom = io.sockets.adapter.rooms.get(room) || {size: 0}
+        numClients = myRoom.size
+        console.log(room, 'has AFTER JOINING', numClients, 'clients');
     })
 
     socket.on('ready', room=>{
@@ -47,4 +50,14 @@ io.on('connection', socket => {
     socket.on('answer', event => {
         socket.broadcast.to(event.room).emit('answer', event.sdp)
     })
+
+    socket.on('leave', room =>{
+        console.log('user leaving room ', room);
+        socket.leave(room);
+        const myRoom = io.sockets.adapter.rooms.get(room) || {size: 0}
+        const numClients = myRoom.size
+        console.log(room, 'NOW has', numClients, 'clients')
+        //socket.broadcast.to(room).emit('userLeft')
+    })
+    
 })

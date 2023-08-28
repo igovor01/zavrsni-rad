@@ -1,13 +1,3 @@
-let divMainContainer = document.getElementById("mainContent")
-let myPlayerCard = document.getElementById("player1");
-let otherPlayerCard = document.getElementById("player2");
-
-let rtcPeerConnection, isCaller
-let dataChannel;
-
-let mySign
-
-
 /*----------------ako nema imena ili room namea, odvedi natrag u lobby */
 let queryString = window.location.search
 let urlParams = new URLSearchParams(queryString)
@@ -22,6 +12,20 @@ let myPicSrc = sessionStorage.getItem('pic-src')
 if(!myDisplayName || !myPicSrc){
     window.location = 'lobby.html'
 }
+
+
+
+let divMainContainer = document.getElementById("mainContent")
+let myPlayerCard = document.getElementById("player1");
+let otherPlayerCard = document.getElementById("player2");
+
+let rtcPeerConnection, isCaller
+let dataChannel;
+
+let mySign
+
+
+
 console.log("My display name:", myDisplayName)
 
 console.log('hey')
@@ -117,9 +121,9 @@ socket.on('ready', () => {
         rtcPeerConnection.onicecandidate = onIceCandidate
         rtcPeerConnection.oniceconnectionstatechange = ()=> {
             console.log('ICE Connection State:', rtcPeerConnection.iceConnectionState);
-            
             if (rtcPeerConnection.iceConnectionState === 'disconnected' || rtcPeerConnection.iceConnectionState === 'closed') {
                 console.log('Peer has left the connection.');
+                console.log("Sending from caller");
                 handlePeerLeaving();
             }
         }
@@ -174,9 +178,10 @@ socket.on('offer', (event)=>{
         rtcPeerConnection.onicecandidate = onIceCandidate
         rtcPeerConnection.oniceconnectionstatechange = ()=> {
             console.log('ICE Connection State:', rtcPeerConnection.iceConnectionState);
-            
+           
             if (rtcPeerConnection.iceConnectionState === 'disconnected' || rtcPeerConnection.iceConnectionState === 'closed') {
                 console.log('Peer has left the connection.');
+                console.log("sending from called side");
                 handlePeerLeaving();
             }
         }
@@ -223,7 +228,10 @@ socket.on('candidate', event=>{
     console.log('received candidate', candidate)
     rtcPeerConnection.addIceCandidate(candidate)
 })
-
+/*
+socket.on('userLeft', ()=>{
+    handlePeerLeaving();
+})*/
 
 
 function onIceCandidate(event){
@@ -282,15 +290,58 @@ function addOtherToDom(data){
     otherPlayerCard.querySelector("img").src = otherSrc
 }
 
+
+function showPopUp(type){
+    const popUp = document.querySelector(".popUp");
+    const popUpImage = document.querySelector(".popUpImage");
+    const popUpMessage = document.querySelector(".popUpMessage");
+    const popUpButton = document.querySelector(".popUpButton")
+    document.getElementById("mainContent").style.filter = "blur(3px)";
+
+    popUp.style.transform = "translate(-50%, -50%) scale(1)";
+    popUp.style.transitionDuration = "0.3s";
+
+    switch(type){
+        case "win":
+            popUpImage.innerHTML = `<i class="fa-solid fa-trophy fa-bounce fa-xl" style="color: #ffd43b;"></i>`;
+            popUpMessage.innerHTML = "Congrats, You Won!";
+            popUpButton.textContent = "Rematch"
+            popUpButton.addEventListener("click", restartGame);
+            break;
+        case "lose":
+            popUpImage.innerHTML = `<i class="fa-regular fa-face-surprise fa-2xl" style="color: #000000;"></i>`;
+            popUpMessage.innerHTML = currentPlayer +" Won!";
+            popUpButton.textContent = "Rematch"
+            popUpButton.addEventListener("click", restartGame);
+            break;
+        case "draw":
+            popUpImage.innerHTML = `<i class="fa-solid fa-handshake fa-2xl" style="color: #000000;"></i>`;
+            popUpMessage.textContent = "Draw!";
+            popUpButton.textContent = "Rematch";
+            popUpButton.addEventListener("click", restartGame);
+            break;
+        case "user-left":
+            popUpImage.innerHTML = `<i class="fa-solid fa-heart-crack fa-2xl" style="color: #c20000;"></i>`;
+            popUpMessage.textContent = "Opponent left!";
+            popUpButton.textContent = "Go To Lobby";
+            popUpButton.addEventListener("click", () => { window.location = 'lobby.html'});
+
+            break;
+    }
+}
+
 function handlePeerLeaving(){
     if (dataChannel.readyState === 'open') {
-        dataChannel.close();
+        dataChannel.close(); 
     }
     // Close RTCPeerConnection
     rtcPeerConnection.close();
+    //neka peer izađe i iz socket room
+    socket.emit('leave', roomNumber);
     //ugasit ploču
     cells.forEach(cell => cell.removeEventListener("click", handleCellClicked));
-    addWaitingForUserToDOM()     
+    showPopUp("user-left");
+    //addWaitingForUserToDOM()     
     //restartBtn.disabled = true;
     console.log('Peer connection closed.');
 

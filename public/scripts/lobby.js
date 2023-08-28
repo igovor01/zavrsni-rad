@@ -98,6 +98,20 @@ let displayName = sessionStorage.getItem('display_name')
 if(displayName){
     form.name.value = displayName
 }
+
+let displayPicSrc = sessionStorage.getItem('pic-src')
+if(displayPicSrc){
+    for(let i=0; i<circles.length; i++){
+        let circle = circles[i];
+        let imgElement = circle.querySelector("img");
+        if(imgElement.getAttribute("src") === displayPicSrc){
+            currentlyClickedCircle = circle;
+            currentlyClickedCircle.classList.add('clicked');
+            isCircleClicked = true;
+            break;
+        }
+    }
+}
 form.addEventListener('submit', (e) =>{
     e.preventDefault()
 
