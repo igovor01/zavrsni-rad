@@ -44,7 +44,7 @@ init = () => {
         alert("please type a room name")
     } else{
         addSelfToDOM()
-        addWaitingForUserToDOM()
+        addWaitingForUserToDOM();
         
         initializeGame()
         cells.forEach(cell => cell.removeEventListener("click", handleCellClicked));
@@ -81,7 +81,6 @@ socket.on('created', room => {
     //sami smo jos u sobi
 
     isCaller = true
-
    
     checkWhichSign()
 })
