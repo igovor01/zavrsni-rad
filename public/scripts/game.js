@@ -16,6 +16,7 @@ const winConditions = [
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
+let lastPlayedCell;
 
 //TODO:
 
@@ -29,15 +30,7 @@ function initializeGame() {
 
   // restartBtn.disabled = false
   cells.forEach((cell) => cell.addEventListener("click", handleCellClicked));
-  restartBtn.addEventListener("click", () => {
-    restartGame();
-
-    const message = {
-      type: "game-restart",
-      currentPlayer: currentPlayer,
-    };
-    dataChannel.send(JSON.stringify(message));
-  });
+  restartBtn.addEventListener("click", restartGame);
   statusText.textContent = `${currentPlayer}'s turn`;
 }
 
@@ -52,7 +45,8 @@ function handleCellClicked() {
   checkWinner();
   cells.forEach((cell) => cell.removeEventListener("click", handleCellClicked));
 
-  this.style.backgroundColor = "#858525";
+  
+  this.style.backgroundColor = "#fff"
 
   const message = {
     type: "game-update",
@@ -71,9 +65,32 @@ function updateCell(cell, index) {
 
 function changePlayer() {
   currentPlayer = currentPlayer == "X" ? "O" : "X";
-  statusText.textContent = `${currentPlayer}'s turn`;
+  if(currentPlayer == mySign){
+    statusText.textContent = `Your turn!`;
+  }
+  else{
+    statusText.textContent = `${currentPlayer}'s turn`;
+  }
+  addTurnStyle();
 }
 
+function addTurnStyle(){
+  if(currentPlayer == mySign)
+  {
+    myPlayerCard.classList.remove("player-not-turn");
+    myPlayerCard.classList.add("player-turn");
+    otherPlayerCard.classList.remove("player-turn");
+    otherPlayerCard.classList.add("player-not-turn");
+    
+  }
+  else{
+    myPlayerCard.classList.remove("player-turn");
+    myPlayerCard.classList.add("player-not-turn");
+    otherPlayerCard.classList.remove("player-not-turn");
+    otherPlayerCard.classList.add("player-turn");
+  }
+  
+}
 function checkWinner() {
   let roundWon = false;
 
@@ -108,10 +125,10 @@ function checkWinner() {
   }
 }
 
-function restartGame() {
-  currentPlayer = mySign == "X" ? "O" : "X";
+function cleanBoard(){
   options = ["", "", "", "", "", "", "", "", ""];
   statusText.textContent = `${currentPlayer}'s turn`;
+  addTurnStyle();
 
   cells.forEach((cell) => {
     cell.textContent = "";
@@ -119,6 +136,16 @@ function restartGame() {
     cell.removeEventListener("click", handleCellClicked);
   });
   running = true;
+}
+
+function restartGame() {
+  currentPlayer = mySign == "X" ? "O" : "X";
+  cleanBoard();
+  const message = {
+    type: "game-restart",
+    currentPlayer: currentPlayer,
+  };
+  dataChannel.send(JSON.stringify(message));
 }
 
 //initializeGame();
