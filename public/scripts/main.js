@@ -46,10 +46,12 @@ init = () => {
         addSelfToDOM()
         addWaitingForUserToDOM();
         
+        
         initializeGame()
         cells.forEach(cell => cell.removeEventListener("click", handleCellClicked));
         //restartBtn.disabled = true;
         socket.emit('create or join', roomNumber)
+        
         // ------događa se obojici igrača------
         //0. neka se div s pločom i igračima pojavi
         //1. inicijalizirat igru kao NEAKTIVNU - aktivna tek kad u 'created'
@@ -67,11 +69,10 @@ function addWaitingForUserToDOM(){
     //document.get h1 di je OTHER's ime i stavit "Waiting"
     otherPlayerCard.querySelector('.user-name').textContent = "Waiting...";
     otherPlayerCard.querySelector('img').src = "images/waiting.png";
+    otherPlayerCard.querySelector(".user-sign").textContent = "?"
 
     //obojat pozadinu u sivo
     otherPlayerCard.classList.add("not-connected");
-    //document.get di je user-sign i nek bude = ""
-    otherPlayerCard.querySelector(".user-sign").textContent = "?"
 
 }
 
@@ -87,7 +88,6 @@ socket.on('created', room => {
 
 socket.on('joined', room => {
     //callED side - ovo se trigera kad se on kao 2. korisnik prikljuci
-    //sa linijom "socket.emit('ready', roomNumber)" gradi se vec slika u kojoj nismo sami u sobi
     
     socket.emit('ready', roomNumber)//gradimo konekciju
     console.log("User has joined!");
@@ -113,7 +113,7 @@ function sendUserInfo(){
     dataChannel.send(JSON.stringify(message))
 }
 
-socket.on('ready', () => {
+socket.on('ready', async function() {
     //caller side - ovo se trigera kad se sugovornik prikljuci
     if(isCaller){
         rtcPeerConnection = new RTCPeerConnection(iceServers)
@@ -137,25 +137,21 @@ socket.on('ready', () => {
 
         //tu bi tribali inicalirat igru kao da mi prvi igramo
         dataChannel = rtcPeerConnection.createDataChannel(roomNumber)
-        rtcPeerConnection.createOffer()
-            .then(sessionDescription => {
-                console.log('sending offer', sessionDescription)
-            rtcPeerConnection.setLocalDescription(sessionDescription)
-            socket.emit('offer', {
-                type: 'offer',
-                sdp: sessionDescription,
-                room: roomNumber,
-            })
-        })
-            .catch(err =>{
-            console.log(err)
-        })
-        //iniijalizirajmo da je ploca aktivna
+        const sdp = await rtcPeerConnection.createOffer();
+        console.log('sending offer', sdp)
+        rtcPeerConnection.setLocalDescription(sdp);
+        socket.emit('offer', {
+            type: 'offer',
+            sdp: sdp,
+            room: roomNumber,
+        });
+        
         dataChannel.onmessage = handleChannelMessage
         dataChannel.onopen = () =>{
-        if(otherPlayerCard.classList.contains("not-connected")){
-            sendUserInfo()
-        }
+            if(otherPlayerCard.classList.contains("not-connected")){
+                sendUserInfo()
+            }
+        //iniijalizirajmo da je ploca aktivna
         initializeGame()
         }
         
@@ -168,9 +164,17 @@ function checkWhichSign(){
     console.log("My (", myDisplayName, ") sign is, ", mySign)
     myPlayerCard.querySelector(".user-sign").textContent =  mySign == "X" ? "X" : "O"
     otherPlayerCard.querySelector(".user-sign").textContent = mySign =="X" ? "O" : "X"
+    if(mySign == currentPlayer){
+        myPlayerCard.classList.add("player-turn");
+        otherPlayerCard.classList.add("player-not-turn");
+      }
+      else{
+        myPlayerCard.classList.add("player-not-turn");
+        otherPlayerCard.classList.add("player-turn");
+      }
 }
 
-socket.on('offer', (event)=>{
+socket.on('offer', async function(event){
     //callED side
     if(!isCaller){
         rtcPeerConnection = new RTCPeerConnection(iceServers)
@@ -196,19 +200,14 @@ socket.on('offer', (event)=>{
             }}
             //dataChannel.onclose = handleChannelClose
         }
-        rtcPeerConnection.createAnswer()
-        .then(sessionDescription => {
-            console.log('sending answer', sessionDescription)
-            rtcPeerConnection.setLocalDescription(sessionDescription)
-            socket.emit('answer', {
-                type: 'answer',
-                sdp: sessionDescription,
-                room: roomNumber,
-            })
-        })
-        .catch(err =>{
-            console.log(err);
-        })
+        const sdp = await rtcPeerConnection.createAnswer();
+        console.log('sending answer', sdp)
+        rtcPeerConnection.setLocalDescription(sdp)
+        socket.emit('answer', {
+            type: 'answer',
+            sdp: sdp,
+            room: roomNumber,
+        });
     } 
 })
 
@@ -271,8 +270,8 @@ function handleChannelMessage(message){
         case "game-restart":
             console.log('A new message was received')
             console.log("Message:", data)
-            restartGame();
             currentPlayer = data.currentPlayer
+            cleanBoard();
             initializeGame()
             break;
         default:
@@ -345,6 +344,22 @@ function handlePeerLeaving(){
     console.log('Peer connection closed.');
 
 }
+
+document.querySelector(".fa-xmark").addEventListener("mouseover", (e) =>{
+    e.target.classList.add("fa-spin")
+})
+
+document.querySelector(".fa-xmark").addEventListener("mouseout", (e) =>{
+    e.target.classList.remove("fa-spin")
+})
+
+document.querySelector(".fa-o").addEventListener("mouseover", (e) => {
+    e.target.classList.add("fa-bounce")
+})
+
+document.querySelector(".fa-o").addEventListener("mouseout", (e) => {
+    e.target.classList.remove("fa-bounce")
+})
 
 window.addEventListener('beforeunload', handlePeerLeaving)
 init()

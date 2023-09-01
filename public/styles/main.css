@@ -6,12 +6,23 @@
     --primary-color: #27796b;
     --primary-color-light: #72c4bc;
     --primary-color-very-light: #a3ddd0;
+    --primary-color-dark: #185046;
 
     --light-gray-green:#82b7ae;
     --very-light-gray-green: #cafaf2;
 
     --text-color: #000;
     --profile-pic-background: #262625;
+}
+
+body{
+    /*background-color: #82b7ae71;*/
+    background-image: url("../images/tictactoe-background-3.jpg");
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
 }
 .titleHeader{
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -20,7 +31,7 @@
     letter-spacing: 0.15em; /* Adjust the letter spacing for the desired effect */
     text-align: center;
     margin: 1rem 0;
-    color:var(--very-light-gray-green)
+    color: var(--primary-color-dark)
   }
 
 #mainContent{
@@ -39,6 +50,7 @@
     font-family: sans-serif;
     text-align: center;
     max-width: 200px;
+    margin: 30px 0 30px 0;
     border-radius: 10px;
     height: 320px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -142,7 +154,7 @@
 }
 
 #statusText{
-    margin-top: 15px;
+    margin: 15px 0 15px 0;
 }
 
 #restartBtn{
@@ -156,19 +168,19 @@
     background-color: #454545;
 }
 
-.player-active{
-    border: 2px solid green;
+.player-turn{
+    box-shadow: 0 0 20px rgb(102, 255, 0);
 }
 
-.player-waiting{
-    border: 2px solid red;
+.player-not-turn{
+    box-shadow: 0 0 20px rgb(255, 78, 81);
 }
 
 
 
 
 
-/*------------------------------styling pop up ---------------------------------------*/
+/*---------------------------------------------------styling pop up ---------------------------------------------*/
 
 .popUp{
     height: 400px;
@@ -239,14 +251,22 @@
 /* ------------------------------------------styling pop up - END ---------------------------------*/
 
 @media (max-width: 980px) {
+    .titleHeader{
+        font-size: 3rem;
+      }
+  
     #mainContent{
+        display: flex;
         flex-direction: column;
         width: 100%;
     }
     .playerProfile
     {
         width: 100%;
-        position: static;
+        align-self: center;
+    }
+    .popUp{
+        width: 100%;
     }
 
 }
