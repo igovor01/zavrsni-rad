@@ -16,27 +16,19 @@ const winConditions = [
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
-let lastPlayedCell;
-
-//TODO:
-
-//document.getElementById('player1').querySelector('h1').innerHTML = currentPlayer;
-//document.getElementById('player2').style.backgroundColor = "#454545";
 
 function initializeGame() {
   console.log("IGRA SE INICIJALIZIRA");
   running = true;
   //restartGame();
 
-  // restartBtn.disabled = false
   cells.forEach((cell) => cell.addEventListener("click", handleCellClicked));
   restartBtn.addEventListener("click", restartGame);
-  statusText.textContent = `${currentPlayer}'s turn`;
+  statusText.textContent = currentPlayer == mySign ? `Your turn!` : `${currentPlayer}'s turn`;
 }
 
 function handleCellClicked() {
   const cellIndex = this.getAttribute("cellIndex");
-
   if (options[cellIndex] != "" || !running) {
     return;
   }
@@ -44,18 +36,14 @@ function handleCellClicked() {
   updateCell(this, cellIndex);
   checkWinner();
   cells.forEach((cell) => cell.removeEventListener("click", handleCellClicked));
-
-  
-  this.style.backgroundColor = "#fff"
+  this.style.backgroundColor = "#fff";
 
   const message = {
     type: "game-update",
     newElement: cellIndex,
-    player: this.innerHTML, //taj player koji je trenutno tu, this.innerHTML
+    player: this.innerHTML, 
   };
   dataChannel.send(JSON.stringify(message));
-
-  //cells.forEach(cell => cell.removeEventListener("click", handleCellClicked));
 }
 
 function updateCell(cell, index) {
@@ -111,10 +99,10 @@ function checkWinner() {
   if (roundWon) {
     statusText.textContent = `${currentPlayer} wins!`;
     if(currentPlayer == mySign){
-      showPopUp("win")
+      showPopUp("win");
     }
     else{
-      showPopUp("lose")
+      showPopUp("lose");
     }
     running = false;
   } else if (!options.includes("")) {
