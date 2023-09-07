@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>TicTacToe</title>
     <script src="https://kit.fontawesome.com/11c4571db7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/game.css">
 </head>
+
 <body>
     <div class="titleHeader">
         <i class="fa-solid fa-xmark" style="color: #185046;"></i>
@@ -14,59 +16,59 @@
     </div>
     <div id="mainContent" style="display: none;">
         <!------- left sidebar - player1 ------>
-        
+
         <div id="player1" class="playerProfile">
             <div class="image-sign-container">
                 <div class="image-border">
                     <img src="">
-                    
+
                 </div>
                 <h1 class="user-sign"></h1>
             </div>
             <h4 class="user-name"></h4>
             <div class="score-counter">
-                    <span>Score</span>
-                    <h3>0</h3>
+                <span>Score</span>
+                <h3>0</h3>
             </div>
         </div>
 
         <!------- main content - game ------>
         <div id="gameContainer">
-          <div id="cellContainer">
-              <div cellIndex="0" class="cell"></div>
-              <div cellIndex="1" class="cell"></div>
-              <div cellIndex="2" class="cell"></div>
-              <div cellIndex="3" class="cell"></div>
-              <div cellIndex="4" class="cell"></div>
-              <div cellIndex="5" class="cell"></div>
-              <div cellIndex="6" class="cell"></div>
-              <div cellIndex="7" class="cell"></div>
-              <div cellIndex="8" class="cell"></div>
-          </div>
-          <h2 id="statusText"></h2>
-          <button id="restartBtn">Restart</button>
+            <div id="cellContainer">
+                <div cellIndex="0" class="cell"></div>
+                <div cellIndex="1" class="cell"></div>
+                <div cellIndex="2" class="cell"></div>
+                <div cellIndex="3" class="cell"></div>
+                <div cellIndex="4" class="cell"></div>
+                <div cellIndex="5" class="cell"></div>
+                <div cellIndex="6" class="cell"></div>
+                <div cellIndex="7" class="cell"></div>
+                <div cellIndex="8" class="cell"></div>
+            </div>
+            <h2 id="statusText"></h2>
+            <button id="restartBtn">Restart</button>
         </div>
         <!------- right sidebar - player2 ------>
-        
+
         <div id="player2" class="playerProfile">
             <div class="image-sign-container">
                 <div class="image-border">
                     <img src="">
-                    
+
                 </div>
                 <h1 class="user-sign"></h1>
             </div>
             <h4 class="user-name"></h4>
             <div class="score-counter">
-                    <span>Score</span>
-                    <h3>0</h3>
+                <span>Score</span>
+                <h3>0</h3>
             </div>
         </div>
 
-        
+
     </div>
-    
-     <div class="popUp">
+
+    <div class="popUp">
         <div class="popUpImage"></div>
         <div class="popUpMessage"></div>
         <div class="popUpButtonContainer">
@@ -79,4 +81,5 @@
     <script src="scripts/game.js"></script>
     <script src="scripts/main.js"></script>
 </body>
+
 </html>

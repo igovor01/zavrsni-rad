@@ -40,7 +40,7 @@ function handleCellClicked() {
   const message = {
     type: "game-update",
     newElement: cellIndex,
-    player: this.innerHTML, 
+    player: this.innerHTML,
   };
   dataChannel.send(JSON.stringify(message));
 }
@@ -52,31 +52,30 @@ function updateCell(cell, index) {
 
 function changePlayer() {
   currentPlayer = currentPlayer == "X" ? "O" : "X";
-  if(currentPlayer == mySign){
+  if (currentPlayer == mySign) {
     statusText.textContent = `Your turn!`;
   }
-  else{
+  else {
     statusText.textContent = `${currentPlayer}'s turn`;
   }
   addTurnStyle();
 }
 
-function addTurnStyle(){
-  if(currentPlayer == mySign)
-  {
+function addTurnStyle() {
+  if (currentPlayer == mySign) {
     myPlayerCard.classList.remove("player-not-turn");
     myPlayerCard.classList.add("player-turn");
     otherPlayerCard.classList.remove("player-turn");
     otherPlayerCard.classList.add("player-not-turn");
-    
+
   }
-  else{
+  else {
     myPlayerCard.classList.remove("player-turn");
     myPlayerCard.classList.add("player-not-turn");
     otherPlayerCard.classList.remove("player-not-turn");
     otherPlayerCard.classList.add("player-turn");
   }
-  
+
 }
 function checkWinner() {
   let roundWon = false;
@@ -97,18 +96,18 @@ function checkWinner() {
   }
   if (roundWon) {
     statusText.textContent = `${currentPlayer} wins!`;
-    if(currentPlayer == mySign){
+    if (currentPlayer == mySign) {
       score = parseInt(document.querySelector("#player1 .score-counter h3").textContent);
       score++;
       document.querySelector("#player1 .score-counter h3").textContent = score;
-      
+
       showPopUp("win");
     }
-    else{
+    else {
       score = parseInt(document.querySelector("#player2 .score-counter h3").textContent);
       score++;
       document.querySelector("#player2 .score-counter h3").textContent = score;
-      
+
       showPopUp("lose");
     }
     running = false;
@@ -120,7 +119,7 @@ function checkWinner() {
   }
 }
 
-function cleanBoard(){
+function cleanBoard() {
   options = ["", "", "", "", "", "", "", "", ""];
   statusText.textContent = `${currentPlayer}'s turn`;
   addTurnStyle();

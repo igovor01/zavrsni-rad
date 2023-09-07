@@ -1,274 +1,272 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-    --primary-color: #27796b;
-    --primary-color-light: #72c4bc;
-    --primary-color-very-light: #a3ddd0;
-    --primary-color-dark: #185046;
+  --primary-color: #27796b;
+  --primary-color-light: #72c4bc;
+  --primary-color-very-light: #a3ddd0;
+  --primary-color-dark: #185046;
 
-    --light-gray-green:#82b7ae;
-    --very-light-gray-green: #cafaf2;
+  --light-gray-green: #82b7ae;
+  --very-light-gray-green: #cafaf2;
 
-    --text-color: #000;
-    --profile-pic-background: #262625;
+  --text-color: #000;
+  --profile-pic-background: #262625;
 }
 
-body{
-    /*background-color: #82b7ae71;*/
-    background-image: url("../images/tictactoe-background-3.jpg");
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
+body {
+  /*background-color: #82b7ae71;*/
+  background-image: url("../images/tictactoe-background-3.jpg");
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
 }
-.titleHeader{
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 5.5rem; /* Adjust the font size as needed */
-    font-weight: bold;
-    letter-spacing: 0.15em; /* Adjust the letter spacing for the desired effect */
-    text-align: center;
-    margin: 1rem 0;
-    color: var(--primary-color-dark)
-  }
+.titleHeader {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 5.5rem; /* Adjust the font size as needed */
+  font-weight: bold;
+  letter-spacing: 0.15em; /* Adjust the letter spacing for the desired effect */
+  text-align: center;
+  margin: 1rem 0;
+  color: var(--primary-color-dark);
+}
 
-#mainContent{
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-align: center;
-    display: flex; 
-    justify-content: space-evenly;
-    align-items: flex-start;
-    padding: 13px 5%;
+#mainContent {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 13px 5%;
 }
 
 /*------------------------------------styling player profile ---------------------------------------*/
 
-.playerProfile{
-    padding: 20px;
-    font-family: sans-serif;
-    text-align: center;
-    max-width: 200px;
-    margin: 30px 0 30px 0;
-    border-radius: 10px;
-    height: 320px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    padding: 20px;
-    background-color: var(--primary-color);
+.playerProfile {
+  padding: 20px;
+  font-family: sans-serif;
+  text-align: center;
+  max-width: 200px;
+  margin: 30px 0 30px 0;
+  border-radius: 10px;
+  height: 320px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  background-color: var(--primary-color);
 }
-.playerProfile .image-sign-container{
-    position: relative;
-    margin-bottom:15px;
+.playerProfile .image-sign-container {
+  position: relative;
+  margin-bottom: 15px;
 }
 
 .playerProfile .image-border {
-   display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--very-light-gray-green);
-    width: 150px;
-    height: 150px;
-    margin: 5px;
-    /*border: 2.5px solid var(--very-light-gray-green);*/
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--very-light-gray-green);
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+  /*border: 2.5px solid var(--very-light-gray-green);*/
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
 }
-.playerProfile .image-border img{
-    width: 105px;
-    height: 105px;
-    object-fit: cover;
-    pointer-events: none;
-}
-
-.playerProfile .user-name{
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #fff;
+.playerProfile .image-border img {
+  width: 105px;
+  height: 105px;
+  object-fit: cover;
+  pointer-events: none;
 }
 
-.playerProfile .user-sign{
-    position: absolute;
-    font-family: sans-serif;
-    font-size: 40px;
-    font-weight: bold;
-    bottom: 0;
-    right: 0;
-    margin: 0;
-    padding-right: 20px;
+.playerProfile .user-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
 }
 
-.playerProfile .score-counter{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-    background-color: #fff;
-    padding: 5px 15px 5px 15px;
-    border-radius: 15px;
+.playerProfile .user-sign {
+  position: absolute;
+  font-family: sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding-right: 20px;
+}
+
+.playerProfile .score-counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  background-color: #fff;
+  padding: 5px 15px 5px 15px;
+  border-radius: 15px;
 }
 
 /*--------------------------------------styling player profile - END -------------------------------------*/
 
-
 /*------------------------------------------styling game container ---------------------------------------*/
 
-#gameContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /*position: absolute;
+#gameContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /*position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     flex-basis: 50%;*/
-    
 }
 
-#cellContainer{
-    display: grid;
-    grid-template-columns: repeat(3,auto);
-    width: 418px;
-    gap:12px;
-    background-color: var(--primary-color);
-    padding: 17px;
-    border-radius: 10px;
+#cellContainer {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  width: 418px;
+  gap: 12px;
+  background-color: var(--primary-color);
+  padding: 17px;
+  border-radius: 10px;
 }
 
-.cell{
-    width: 120px;
-    height: 120px;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--very-light-gray-green);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    font-size:75px;
-    font-family: sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cell {
+  width: 120px;
+  height: 120px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--very-light-gray-green);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  font-size: 75px;
+  font-family: sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#statusText{
-    margin: 15px 0 15px 0;
+#statusText {
+  margin: 15px 0 15px 0;
 }
 
-#restartBtn{
-    margin-top: 15px;
+#restartBtn {
+  margin-top: 15px;
 }
 
 /*------------------------------------------styling game container - END ---------------------------------------*/
 
-
-.not-connected{
-    background-color: #454545;
+.not-connected {
+  background-color: #454545;
 }
 
-.player-turn{
-    box-shadow: 0 0 20px rgb(102, 255, 0);
+.player-turn {
+  box-shadow: 0 0 20px rgb(102, 255, 0);
 }
 
-.player-not-turn{
-    box-shadow: 0 0 20px rgb(255, 78, 81);
+.player-not-turn {
+  box-shadow: 0 0 20px rgb(255, 78, 81);
 }
-
-
-
-
 
 /*---------------------------------------------------styling pop up ---------------------------------------------*/
 
-.popUp{
-    height: 400px;
-    width: 800px;
-    position: absolute;
-    transform:translate(-50%,-50%) scale(0);
-    top: 50%;
-    left: 50%;
-    border-radius: 12px;
-    background-color: rgba(114, 196, 188, 0.9); /*var(--primary-color-light),alimaloprozirnija*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+.popUp {
+  height: 400px;
+  width: 800px;
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0);
+  top: 50%;
+  left: 50%;
+  border-radius: 12px;
+  background-color: rgba(
+    114,
+    196,
+    188,
+    0.9
+  ); /*var(--primary-color-light),alimaloprozirnija*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-    
-.popUp .popUpImage
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 110px;
-    height: 110px;
+
+.popUp .popUpImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 110px;
 }
 
 .popUpImage i {
-    font-size: 4em;
+  font-size: 4em;
 }
 
-.popUp .popUpMessage{
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 3rem;
-    color: #fff;
-    margin-top: 10px;
+.popUp .popUpMessage {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 3rem;
+  color: #fff;
+  margin-top: 10px;
 }
 
-.popUp .popUpButtonContainer{
-    margin: 20px 0 20px 0;
-    display: flex;
-    justify-content:center;
-    align-items: center;
+.popUp .popUpButtonContainer {
+  margin: 20px 0 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.popUp .popUpButton, #restartBtn{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: var(--primary-color);
-    width: 160px;
-    padding: 20px;
-    margin: 0 10px 0 10px;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    transition-duration: 0.3s;
-
+.popUp .popUpButton,
+#restartBtn {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: var(--primary-color);
+  width: 160px;
+  padding: 20px;
+  margin: 0 10px 0 10px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition-duration: 0.3s;
 }
 
-.popUpButton:hover, .popUpButton:focus, .popUpButton:active{
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+.popUpButton:hover,
+.popUpButton:focus,
+.popUpButton:active {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 /* ------------------------------------------styling pop up - END ---------------------------------*/
 
 @media (max-width: 980px) {
-    .titleHeader{
-        font-size: 3rem;
-      }
-  
-    #mainContent{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-    .playerProfile
-    {
-        width: 100%;
-        align-self: center;
-    }
-    .popUp{
-        width: 100%;
-    }
-    /*
+  .titleHeader {
+    font-size: 3rem;
+  }
+
+  #mainContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .playerProfile {
+    width: 100%;
+    align-self: center;
+  }
+  .popUp {
+    width: 100%;
+  }
+  /*
     #cellContainer{
         width: 34rem;
         gap:1rem;
@@ -280,5 +278,4 @@ body{
         font-size: 8rem;
     }
     */
-
 }

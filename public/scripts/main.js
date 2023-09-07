@@ -344,7 +344,7 @@ function showPopUp(type) {
     }
 }
 
-function removePopUp(){
+function removePopUp() {
     const popUp = document.querySelector(".popUp");
     document.getElementById("mainContent").style.filter = "blur(0)";
 
@@ -352,7 +352,7 @@ function removePopUp(){
     popUp.style.transitionDuration = "0.3s";
 }
 
-function acceptRematch(){ 
+function acceptRematch() {
     removePopUp();
     const message = {
         type: 'rematch-accepted',

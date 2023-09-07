@@ -8,7 +8,7 @@ let io = require('socket.io')(http)
 
 app.use(express.static('public'))
 
-http.listen(port, ()=>{
+http.listen(port, () => {
     console.log('listening on', port)
 })
 
@@ -17,25 +17,25 @@ io.on('connection', socket => {
 
     socket.on('create or join', room => {
         console.log('create or join to room', room)
-        let myRoom = io.sockets.adapter.rooms.get(room) || {size: 0}
+        let myRoom = io.sockets.adapter.rooms.get(room) || { size: 0 }
         let numClients = myRoom.size
         console.log(room, 'has', numClients, 'clients')
 
-        if(numClients === 0){
+        if (numClients === 0) {
             socket.join(room)
             socket.emit('created', room)
-        } else if(numClients === 1){
+        } else if (numClients === 1) {
             socket.join(room)
             socket.emit('joined', room)
-        } else{
+        } else {
             socket.emit('full', room)
         }
-        myRoom = io.sockets.adapter.rooms.get(room) || {size: 0}
+        myRoom = io.sockets.adapter.rooms.get(room) || { size: 0 }
         numClients = myRoom.size
         console.log(room, 'has AFTER JOINING', numClients, 'clients');
     })
 
-    socket.on('ready', room=>{
+    socket.on('ready', room => {
         socket.broadcast.to(room).emit('ready')
     })
 
@@ -43,7 +43,7 @@ io.on('connection', socket => {
         socket.broadcast.to(event.room).emit('candidate', event)
     })
 
-    socket.on('offer', event =>{
+    socket.on('offer', event => {
         socket.broadcast.to(event.room).emit('offer', event.sdp)
     })
 
@@ -51,13 +51,13 @@ io.on('connection', socket => {
         socket.broadcast.to(event.room).emit('answer', event.sdp)
     })
 
-    socket.on('leave', room =>{
+    socket.on('leave', room => {
         console.log('user leaving room ', room);
         socket.leave(room);
-        const myRoom = io.sockets.adapter.rooms.get(room) || {size: 0}
+        const myRoom = io.sockets.adapter.rooms.get(room) || { size: 0 }
         const numClients = myRoom.size
         console.log(room, 'NOW has', numClients, 'clients')
         //socket.broadcast.to(room).emit('userLeft')
     })
-    
+
 })
