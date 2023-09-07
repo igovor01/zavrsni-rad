@@ -268,5 +268,17 @@ body{
     .popUp{
         width: 100%;
     }
+    /*
+    #cellContainer{
+        width: 34rem;
+        gap:1rem;
+        padding:1rem;
+    }
+    .cell{
+        width: 10rem;
+        height: 10rem;
+        font-size: 8rem;
+    }
+    */
 
 }
