@@ -18,7 +18,6 @@ let currentPlayer = "X";
 let running = false;
 
 function initializeGame() {
-  console.log("IGRA SE INICIJALIZIRA");
   running = true;
   //restartGame();
 
@@ -99,9 +98,17 @@ function checkWinner() {
   if (roundWon) {
     statusText.textContent = `${currentPlayer} wins!`;
     if(currentPlayer == mySign){
+      score = parseInt(document.querySelector("#player1 .score-counter h3").textContent);
+      score++;
+      document.querySelector("#player1 .score-counter h3").textContent = score;
+      
       showPopUp("win");
     }
     else{
+      score = parseInt(document.querySelector("#player2 .score-counter h3").textContent);
+      score++;
+      document.querySelector("#player2 .score-counter h3").textContent = score;
+      
       showPopUp("lose");
     }
     running = false;
