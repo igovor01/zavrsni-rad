@@ -1,6 +1,6 @@
 1. git clone https://github.com/igovor01/zavrsni-rad.git
 
-2. otvoriti u konzoli mapu ovog projekta 
+2. otvoriti u konzoli mapu ovog projekta
 
 3. npm init -y
 
@@ -10,4 +10,4 @@
 
 6. za pokretanje aplikacije: node app.js
 
-
+7. aplikacija je dostupna na localhost:3000
